@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 Años - Julieta</title>
+    
+    <!-- Fuente elegante para los botones -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           ESTILOS (No necesitas tocar esto)
+        ========================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fcf9f9; /* Color de fondo por si la pantalla es muy ancha */
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* Contenedor principal que simula un móvil */
+        #lienzo-container {
+            max-width: 500px; /* Ancho máximo para que se vea bien en PC y perfecto en celular */
+            margin: 0 auto;
+            position: relative;
+            background-color: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Cada sección de imagen */
+        .seccion-imagen {
+            position: relative;
+            width: 100%;
+            /* Esto elimina cualquier espacio blanco entre imágenes */
+            font-size: 0; 
+            line-height: 0;
+        }
+
+        .seccion-imagen img {
+            width: 100%;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: none;
+        }
+
+        /* Diseño de los botones */
+        .boton-interactivo {
+            position: absolute;
+            transform: translate(-50%, -50%); /* Centra el botón exactamente en la coordenada */
+            background: rgba(255, 255, 255, 0.9);
+            color: #d64c7f; /* Rosa fuerte a juego con el vestido */
+            border: 2px solid #d4af37; /* Borde dorado */
+            border-radius: 30px;
+            padding: 12px 25px;
+            font-size: 16px;
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(214, 76, 127, 0.2);
+            transition: all 0.3s ease;
+            z-index: 10;
+            white-space: nowrap;
+        }
+
+        .boton-interactivo:hover {
+            background: #d4af37;
+            color: #fff;
+            transform: translate(-50%, -50%) scale(1.05);
+        }
+
+        /* Botón de Música Fijo */
+        #btn-musica {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #d4af37;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        #btn-musica:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor donde se inyectarán las imágenes y botones -->
+    <div id="lienzo-container"></div>
+
+    <!-- Botón de música y audio -->
+    <button id="btn-musica" onclick="toggleMusica()">🎵</button>
+    <!-- Asegúrate de tener un archivo mp3 en tu repositorio y poner su nombre aquí -->
+    <audio id="audio-fondo" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        /* =====================================================================
+           ZONA DE CONFIGURACIÓN FÁCIL
+           ¡Aquí es donde editas todo! Cambia los true/false, textos y posiciones.
+        ===================================================================== */
+        
+        const CONFIGURACION = [
+            {
+                // PRIMERA IMAGEN
+                imagen: "portada.png",
+                botones: [
+                    // Si no quieres botones en la portada, déjalo así o pon mostrar: false
+                ]
+            },
+            {
+                // SEGUNDA IMAGEN
+                imagen: "lienzo.png",
+                botones: [
+                    {
+                        mostrar: true,                // Cambia a false si quieres ocultarlo temporalmente
+                        texto: "📍 Ver Ubicación",     // El texto del botón
+                        link: "https://maps.google.com/?q=Salon+de+Fiestas", // El link a donde lleva
+                        arriba: "40%",                // Posición vertical (0% es arriba, 100% es abajo)
+                        izquierda: "50%"              // Posición horizontal (50% es exactamente en el medio)
+                    },
+                    {
+                        mostrar: true,
+                        texto: "🎁 Mesa de Regalos",
+                        link: "https://link-a-tu-mesa-de-regalos.com",
+                        arriba: "70%",
+                        izquierda: "50%"
+                    }
+                ]
+            },
+            {
+                // TERCERA IMAGEN
+                imagen: "vestido.png",
+                botones: [
+                    {
+                        mostrar: true,
+                        texto: "✅ Confirmar Asistencia",
+                        link: "https://wa.me/TUNUMERODEWHATSAPP", // Link de WhatsApp
+                        arriba: "85%", // Lo ponemos bien abajo para que no tape el vestido
+                        izquierda: "50%"
+                    }
+                ]
+            }
+        ];
+
+        /* =====================================================================
+           MOTOR DE LA PLANTILLA (No necesitas tocar de aquí en adelante)
+           ===================================================================== */
+        
+        const contenedor = document.getElementById('lienzo-container');
+
+        // Generar el lienzo
+        CONFIGURACION.forEach(seccion => {
+            // Crear el contenedor de esta parte del lienzo
+            const divSeccion = document.createElement('div');
+            divSeccion.className = 'seccion-imagen';
+            
+            // Añadir la imagen
+            const img = document.createElement('img');
+            img.src = seccion.imagen;
+            img.alt = "Parte de la invitación";
+            divSeccion.appendChild(img);
+
+            // Añadir los botones si están configurados para mostrarse (true)
+            if (seccion.botones && seccion.botones.length > 0) {
+                seccion.botones.forEach(btnConfig => {
+                    if (btnConfig.mostrar === true) {
+                        const boton = document.createElement('a');
+                        boton.href = btnConfig.link;
+                        boton.target = "_blank"; // Abre en pestaña nueva
+                        boton.className = 'boton-interactivo';
+                        boton.innerText = btnConfig.texto;
+                        // Aplicar posiciones
+                        boton.style.top = btnConfig.arriba;
+                        boton.style.left = btnConfig.izquierda;
+                        
+                        divSeccion.appendChild(boton);
+                    }
+                });
+            }
+
+            contenedor.appendChild(divSeccion);
+        });
+
+        // Control de Música
+        const audio = document.getElementById('audio-fondo');
+        const btnMusica = document.getElementById('btn-musica');
+        let reproduciendo = false;
+
+        function toggleMusica() {
+            if (reproduciendo) {
+                audio.pause();
+                btnMusica.innerText = "🔇";
+                reproduciendo = false;
+            } else {
+                audio.play();
+                btnMusica.innerText = "🎵";
+                reproduciendo = true;
+            }
+        }
+
+        // Truco para iniciar la música al primer toque en la pantalla (los navegadores bloquean el autoplay automático)
+        document.body.addEventListener('click', function iniciarAudio() {
+            if (!reproduciendo) {
+                audio.play().then(() => {
+                    reproduciendo = true;
+                    btnMusica.innerText = "🎵";
+                }).catch(e => console.log("Esperando interacción manual para el audio"));
+                document.body.removeEventListener('click', iniciarAudio);
+            }
+        }, { once: true });
+
+    </script>
+</body>
+</html>
