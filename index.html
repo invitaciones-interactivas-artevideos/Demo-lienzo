@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis 15 Años - Julieta</title>
+    
+    <!-- Fuentes elegantes de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================
+           VARIABLES DE COLOR Y DISEÑO (MODIFICABLES)
+           ========================================== */
+        :root {
+            --color-rosado-claro: #fbebf0; /* Fondo de botones y círculos */
+            --color-rosado-medio: #e995a9; /* Bordes y sombras */
+            --color-rosado-oscuro: #c25a76; /* Texto principal */
+            --color-blanco: #ffffff;
+            
+            --fuente-elegante: 'Cormorant Garamond', serif;
+            --fuente-moderna: 'Montserrat', sans-serif;
+        }
+
+        /* Reset básico para que parezca un lienzo continuo */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-blanco);
+            font-family: var(--fuente-moderna);
+            overflow-x: hidden;
+        }
+
+        /* Contenedor principal estilo móvil */
+        .invitacion-lienzo {
+            max-width: 600px; /* Tamaño máximo para tablets/PC */
+            margin: 0 auto;
+            background-color: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        /* Cada sección contiene una imagen y sus elementos interactivos */
+        .seccion {
+            position: relative;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .seccion img {
+            width: 100%;
+            display: block; /* Elimina márgenes inferiores de las imágenes */
+        }
+
+        /* ==========================================
+           ESTILOS DE BOTONES
+           ========================================== */
+        .boton-interactivo {
+            position: absolute;
+            background-color: var(--color-rosado-claro);
+            color: var(--color-rosado-oscuro);
+            font-family: var(--fuente-elegante);
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: 2px solid var(--color-rosado-medio);
+            box-shadow: 0 4px 10px rgba(233, 149, 169, 0.3);
+            transform: translate(-50%, -50%); /* Centra el botón en su coordenada */
+            text-align: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .boton-interactivo:active {
+            transform: translate(-50%, -45%);
+            box-shadow: 0 2px 5px rgba(233, 149, 169, 0.3);
+        }
+
+        /* ==========================================
+           CUENTA REGRESIVA
+           ========================================== */
+        .contador-contenedor {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            transform: translateY(-50%);
+        }
+
+        .circulo-tiempo {
+            background-color: var(--color-rosado-claro);
+            border: 2px solid var(--color-rosado-medio);
+            color: var(--color-rosado-oscuro);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(233, 149, 169, 0.2);
+        }
+
+        .circulo-tiempo span {
+            font-family: var(--fuente-elegante);
+            font-size: 1.6rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .circulo-tiempo p {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ==========================================
+           CARRUSEL DE IMÁGENES
+           ========================================== */
+        .carrusel-contenedor {
+            position: absolute;
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 15px;
+            padding: 10px;
+            transform: translateX(-50%);
+            /* Oculta la barra de scroll */
+            -ms-overflow-style: none;  
+            scrollbar-width: none;  
+        }
+        .carrusel-contenedor::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        .carrusel-item {
+            scroll-snap-align: center;
+            flex: 0 0 200px; /* Ancho de cada foto en el carrusel */
+            height: 250px;
+            border-radius: 15px;
+            border: 3px solid var(--color-rosado-claro);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            object-fit: cover; /* Recorta la imagen para que encaje perfecto */
+            background-color: #fcecf0;
+        }
+
+        /* ==========================================
+           BOTÓN DE MÚSICA FLOTANTE
+           ========================================== */
+        .boton-musica {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-rosado-claro);
+            border: 2px solid var(--color-rosado-medio);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--color-rosado-oscuro);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 1000;
+            animation: latido 2s infinite;
+        }
+        
+        /* Animación suave para la música */
+        @keyframes latido {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pausado {
+            animation: none;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- REPRODUCTOR DE AUDIO OCULTO -->
+    <!-- Coloca tu archivo mp3 en la misma carpeta y pon el nombre aquí -->
+    <audio id="musicaFondo" loop>
+        <source src="cancion.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- BOTÓN DE MÚSICA FLOTANTE -->
+    <div id="toggleMusica" class="boton-musica pausado">
+        🎵
+    </div>
+
+    <!-- CONTENEDOR PRINCIPAL -->
+    <div class="invitacion-lienzo">
+
+        <!-- PORTADA -->
+        <div class="seccion">
+            <img src="portada.png" alt="Portada de la Invitación">
+        </div>
+
+        <!-- IMAGEN 1: CUENTA REGRESIVA -->
+        <div class="seccion">
+            <img src="IMAGEN1.png" alt="Faltan...">
+            <!-- POSICIÓN: top (arriba/abajo) -->
+            <div class="contador-contenedor" style="top: 76%;">
+                <div class="circulo-tiempo"><span id="dias">00</span><p>Días</p></div>
+                <div class="circulo-tiempo"><span id="horas">00</span><p>Hs</p></div>
+                <div class="circulo-tiempo"><span id="minutos">00</span><p>Min</p></div>
+                <div class="circulo-tiempo"><span id="segundos">00</span><p>Seg</p></div>
+            </div>
+        </div>
+
+        <!-- IMAGEN 2: BOTÓN DE UBICACIÓN -->
+        <div class="seccion">
+            <img src="IMAGEN2.png" alt="Fecha y Lugar">
+            <!-- 
+                Puedes editar:
+                - style="top: ...; left: ...;" -> Mueve el botón.
+                - font-size: ... -> Tamaño de la letra.
+                - width: ... -> Ancho del botón.
+                - href="..." -> Link de Google Maps.
+            -->
+            <a href="https://maps.google.com" target="_blank" class="boton-interactivo" 
+               style="top: 86%; left: 50%; width: 60%; font-size: 1.3rem;">
+                Ver Ubicación
+            </a>
+        </div>
+
+        <!-- IMAGEN 3: CARRUSEL DE FOTOS -->
+        <div class="seccion">
+            <img src="IMAGEN3.png" alt="Mis Recuerdos">
+            <div class="carrusel-contenedor" style="top: 67%; left: 50%; width: 90%;">
+                <!-- Cambia foto1.jpg, foto2.jpg por tus fotos -->
+                <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+1" alt="Recuerdo 1" class="carrusel-item">
+                <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+2" alt="Recuerdo 2" class="carrusel-item">
+                <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+3" alt="Recuerdo 3" class="carrusel-item">
+                <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+4" alt="Recuerdo 4" class="carrusel-item">
+            </div>
+        </div>
+
+        <!-- IMAGEN 4: CONFIRMAR ASISTENCIA -->
+        <div class="seccion">
+            <img src="imagen4.png" alt="Confirmar Asistencia">
+            
+            <!-- Botón de formulario -->
+            <a href="https://docs.google.com/forms/..." target="_blank" class="boton-interactivo" 
+               style="top: 48%; left: 50%; width: 75%;">
+                Confirmar Asistencia
+            </a>
+
+            <!-- Este cuadro blanco oculta el texto sobrante de "Mis recuerdos" al final de la imagen 4 -->
+            <div style="position: absolute; top: 62%; left: 0; width: 100%; height: 38%; background-color: #ffffff;"></div>
+        </div>
+
+        <!-- IMAGEN 5: SUGERIR CANCIÓN Y REGALOS -->
+        <div class="seccion">
+            <img src="imagen5.png" alt="Playlist y Regalos">
+            <a href="https://docs.google.com/forms/..." target="_blank" class="boton-interactivo" 
+               style="top: 41%; left: 50%; width: 70%;">
+                Sugerir Canción
+            </a>
+        </div>
+
+        <!-- IMAGEN 6: CIERRE (Si la tienes, súbela como imagen6.jpg) -->
+        <div class="seccion">
+            <!-- El atributo onerror oculta la imagen si el archivo aún no existe, para que no dé error visual -->
+            <img src="imagen6.png" alt="Cierre" onerror="this.style.display='none'">
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         SCRIPTS: FUNCIONALIDAD (NO HACE FALTA TOCAR MUCHO)
+         ========================================== -->
+    <script>
+        /* --- 1. CONFIGURACIÓN FECHA CUENTA REGRESIVA --- */
+        // Cambia la fecha aquí (Año, Mes, Día, Hora, Minuto, Segundo)
+        // FORMATO: "Oct 10, 2026 20:00:00" (Ponlo en inglés el mes por compatibilidad de navegadores)
+        const fechaEvento = new Date("Oct 10, 2026 20:00:00").getTime();
+
+        const intervalo = setInterval(function() {
+            const ahora = new Date().getTime();
+            const distancia = fechaEvento - ahora;
+
+            // Cálculos de tiempo
+            const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+            // Mostrar en el HTML (con ceros a la izquierda si es menor a 10)
+            document.getElementById("dias").innerHTML = dias < 10 ? "0" + dias : dias;
+            document.getElementById("horas").innerHTML = horas < 10 ? "0" + horas : horas;
+            document.getElementById("minutos").innerHTML = minutos < 10 ? "0" + minutos : minutos;
+            document.getElementById("segundos").innerHTML = segundos < 10 ? "0" + segundos : segundos;
+
+            // Si la fecha ya pasó
+            if (distancia < 0) {
+                clearInterval(intervalo);
+                document.getElementById("dias").innerHTML = "00";
+                document.getElementById("horas").innerHTML = "00";
+                document.getElementById("minutos").innerHTML = "00";
+                document.getElementById("segundos").innerHTML = "00";
+            }
+        }, 1000);
+
+        /* --- 2. CONFIGURACIÓN MÚSICA (AUTOPLAY) --- */
+        const audio = document.getElementById("musicaFondo");
+        const btnMusica = document.getElementById("toggleMusica");
+        let reproducido = false;
+
+        // Intentar autoplay (Los navegadores modernos lo bloquean hasta que el usuario toca la pantalla)
+        document.body.addEventListener('click', function() {
+            if (!reproducido) {
+                audio.play().catch(error => console.log("Autoplay bloqueado"));
+                btnMusica.classList.remove("pausado");
+                reproducido = true;
+            }
+        }, { once: true }); // Solo escucha el primer toque general
+
+        // Botón manual de música
+        btnMusica.addEventListener('click', function(e) {
+            e.stopPropagation(); // Evita que dispare el evento del body
+            if (audio.paused) {
+                audio.play();
+                btnMusica.classList.remove("pausado");
+            } else {
+                audio.pause();
+                btnMusica.classList.add("pausado");
+            }
+        });
+    </script>
+</body>
+</html>
