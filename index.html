@@ -13,7 +13,7 @@
            VARIABLES DE COLOR Y DISEÑO (MODIFICABLES)
            ========================================== */
         :root {
-            --color-rosado-claro: #fbebf0; /* Fondo de botones y círculos */
+            --color-rosado-claro: #fbebf0; /* Fondo de botones y colores claros */
             --color-rosado-medio: #e995a9; /* Bordes y sombras */
             --color-rosado-oscuro: #c25a76; /* Texto principal */
             --color-blanco: #ffffff;
@@ -83,43 +83,46 @@
         }
 
         /* ==========================================
-           CUENTA REGRESIVA
+           CUENTA REGRESIVA ELEGANTE (NUEVA VERSIÓN)
            ========================================== */
-        .contador-contenedor {
+        .contador-caja {
             position: absolute;
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            width: 100%;
-            transform: translateY(-50%);
+            top: 76%; /* Mantiene la misma altura que solicitaste */
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(255, 255, 255, 0.9); /* Blanco elegante con leve transparencia */
+            border: 2px solid var(--color-rosado-medio);
+            border-radius: 25px; /* Esquinas redondeadas */
+            padding: 25px 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Dos columnas */
+            gap: 20px 40px; /* Separación entre filas y columnas */
+            box-shadow: 0 8px 25px rgba(233, 149, 169, 0.4);
+            width: 80%;
+            max-width: 320px;
+            z-index: 10;
         }
 
-        .circulo-tiempo {
-            background-color: var(--color-rosado-claro);
-            border: 2px solid var(--color-rosado-medio);
-            color: var(--color-rosado-oscuro);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
+        .tiempo-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 8px rgba(233, 149, 169, 0.2);
+            color: var(--color-rosado-oscuro);
         }
 
-        .circulo-tiempo span {
+        .tiempo-item span {
             font-family: var(--fuente-elegante);
-            font-size: 1.6rem;
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1;
         }
 
-        .circulo-tiempo p {
-            font-size: 0.6rem;
+        .tiempo-item p {
+            font-size: 0.8rem;
             text-transform: uppercase;
             font-weight: 600;
-            margin-top: 2px;
+            margin-top: 5px;
+            letter-spacing: 1px;
         }
 
         /* ==========================================
@@ -191,7 +194,6 @@
 <body>
 
     <!-- REPRODUCTOR DE AUDIO OCULTO -->
-    <!-- Coloca tu archivo mp3 en la misma carpeta y pon el nombre aquí -->
     <audio id="musicaFondo" loop>
         <source src="cancion.mp3" type="audio/mpeg">
     </audio>
@@ -212,25 +214,20 @@
         <!-- IMAGEN 1: CUENTA REGRESIVA -->
         <div class="seccion">
             <img src="IMAGEN1.png" alt="Faltan...">
-            <!-- POSICIÓN: top (arriba/abajo) -->
-            <div class="contador-contenedor" style="top: 76%;">
-                <div class="circulo-tiempo"><span id="dias">00</span><p>Días</p></div>
-                <div class="circulo-tiempo"><span id="horas">00</span><p>Hs</p></div>
-                <div class="circulo-tiempo"><span id="minutos">00</span><p>Min</p></div>
-                <div class="circulo-tiempo"><span id="segundos">00</span><p>Seg</p></div>
+            <!-- NUEVA CAJA DE CONTADOR (No usa círculos y mantiene el top: 76%) -->
+            <div class="contador-caja">
+                <!-- Arriba -->
+                <div class="tiempo-item"><span id="dias">00</span><p>Días</p></div>
+                <div class="tiempo-item"><span id="horas">00</span><p>Hs</p></div>
+                <!-- Abajo -->
+                <div class="tiempo-item"><span id="minutos">00</span><p>Min</p></div>
+                <div class="tiempo-item"><span id="segundos">00</span><p>Seg</p></div>
             </div>
         </div>
 
         <!-- IMAGEN 2: BOTÓN DE UBICACIÓN -->
         <div class="seccion">
             <img src="IMAGEN2.png" alt="Fecha y Lugar">
-            <!-- 
-                Puedes editar:
-                - style="top: ...; left: ...;" -> Mueve el botón.
-                - font-size: ... -> Tamaño de la letra.
-                - width: ... -> Ancho del botón.
-                - href="..." -> Link de Google Maps.
-            -->
             <a href="https://maps.google.com" target="_blank" class="boton-interactivo" 
                style="top: 86%; left: 50%; width: 60%; font-size: 1.3rem;">
                 Ver Ubicación
@@ -241,7 +238,6 @@
         <div class="seccion">
             <img src="IMAGEN3.png" alt="Mis Recuerdos">
             <div class="carrusel-contenedor" style="top: 67%; left: 50%; width: 90%;">
-                <!-- Cambia foto1.jpg, foto2.jpg por tus fotos -->
                 <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+1" alt="Recuerdo 1" class="carrusel-item">
                 <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+2" alt="Recuerdo 2" class="carrusel-item">
                 <img src="https://via.placeholder.com/200x250/fcecf0/e995a9?text=Foto+3" alt="Recuerdo 3" class="carrusel-item">
@@ -252,41 +248,55 @@
         <!-- IMAGEN 4: CONFIRMAR ASISTENCIA -->
         <div class="seccion">
             <img src="imagen4.png" alt="Confirmar Asistencia">
-            
-            <!-- Botón de formulario -->
             <a href="https://docs.google.com/forms/..." target="_blank" class="boton-interactivo" 
                style="top: 48%; left: 50%; width: 75%;">
                 Confirmar Asistencia
             </a>
-
-            <!-- Este cuadro blanco oculta el texto sobrante de "Mis recuerdos" al final de la imagen 4 -->
-            <div style="position: absolute; top: 62%; left: 0; width: 100%; height: 38%; background-color: #ffffff;"></div>
+            <!-- El rectángulo blanco que tapaba la imagen5 ha sido eliminado por completo de aquí -->
         </div>
 
         <!-- IMAGEN 5: SUGERIR CANCIÓN Y REGALOS -->
         <div class="seccion">
             <img src="imagen5.png" alt="Playlist y Regalos">
-            <a href="https://docs.google.com/forms/..." target="_blank" class="boton-interactivo" 
+            
+            <a href="https://docs.google.com/forms/..." id="btn-cancion" target="_blank" class="boton-interactivo" 
                style="top: 41%; left: 50%; width: 70%;">
                 Sugerir Canción
             </a>
+            
+            <!-- NUEVO: Botón de Subir Fotos en la parte inferior -->
+            <a href="https://ruta-para-subir-fotos.com" id="btn-fotos" target="_blank" class="boton-interactivo" 
+               style="top: 85%; left: 50%; width: 70%;">
+                Subir Fotos
+            </a>
         </div>
 
-        <!-- IMAGEN 6: CIERRE (Si la tienes, súbela como imagen6.jpg) -->
+        <!-- IMAGEN 6: CIERRE -->
         <div class="seccion">
-            <!-- El atributo onerror oculta la imagen si el archivo aún no existe, para que no dé error visual -->
             <img src="imagen6.png" alt="Cierre" onerror="this.style.display='none'">
         </div>
 
     </div>
 
     <!-- ==========================================
-         SCRIPTS: FUNCIONALIDAD (NO HACE FALTA TOCAR MUCHO)
+         SCRIPTS: FUNCIONALIDAD
          ========================================== -->
     <script>
+        /* --- CONFIGURACIÓN DE BOTONES (OPCIONES DE ACTIVAR/DESACTIVAR) --- */
+        // Cambia `true` a `false` si deseas ocultar alguno de los botones.
+        const activarBotonCancion = true; 
+        const activarBotonFotos = true;   
+
+        // Lógica que evalúa las opciones de arriba para ocultar los botones
+        if (!activarBotonCancion) {
+            document.getElementById("btn-cancion").style.display = "none";
+        }
+        if (!activarBotonFotos) {
+            document.getElementById("btn-fotos").style.display = "none";
+        }
+
         /* --- 1. CONFIGURACIÓN FECHA CUENTA REGRESIVA --- */
-        // Cambia la fecha aquí (Año, Mes, Día, Hora, Minuto, Segundo)
-        // FORMATO: "Oct 10, 2026 20:00:00" (Ponlo en inglés el mes por compatibilidad de navegadores)
+        // Formato: Mes Día, Año Hora:Minutos:Segundos
         const fechaEvento = new Date("Oct 10, 2026 20:00:00").getTime();
 
         const intervalo = setInterval(function() {
@@ -320,18 +330,16 @@
         const btnMusica = document.getElementById("toggleMusica");
         let reproducido = false;
 
-        // Intentar autoplay (Los navegadores modernos lo bloquean hasta que el usuario toca la pantalla)
         document.body.addEventListener('click', function() {
             if (!reproducido) {
                 audio.play().catch(error => console.log("Autoplay bloqueado"));
                 btnMusica.classList.remove("pausado");
                 reproducido = true;
             }
-        }, { once: true }); // Solo escucha el primer toque general
+        }, { once: true });
 
-        // Botón manual de música
         btnMusica.addEventListener('click', function(e) {
-            e.stopPropagation(); // Evita que dispare el evento del body
+            e.stopPropagation();
             if (audio.paused) {
                 audio.play();
                 btnMusica.classList.remove("pausado");
