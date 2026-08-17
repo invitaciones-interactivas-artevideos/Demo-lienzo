@@ -13,9 +13,9 @@
            VARIABLES DE COLOR Y DISEÑO (MODIFICABLES)
            ========================================== */
         :root {
-            --color-rosado-claro: #fbebf0; /* Fondo de botones y colores claros */
-            --color-rosado-medio: #e995a9; /* Bordes y sombras */
-            --color-rosado-oscuro: #c25a76; /* Texto principal */
+            --color-rosado-claro: #fbebf0; 
+            --color-rosado-medio: #e995a9; 
+            --color-rosado-oscuro: #c25a76; 
             --color-blanco: #ffffff;
             
             --fuente-elegante: 'Cormorant Garamond', serif;
@@ -37,7 +37,7 @@
 
         /* Contenedor principal estilo móvil */
         .invitacion-lienzo {
-            max-width: 600px; /* Tamaño máximo para tablets/PC */
+            max-width: 600px; 
             margin: 0 auto;
             background-color: white;
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -53,7 +53,7 @@
 
         .seccion img {
             width: 100%;
-            display: block; /* Elimina márgenes inferiores de las imágenes */
+            display: block; 
         }
 
         /* ==========================================
@@ -71,7 +71,7 @@
             border-radius: 30px;
             border: 2px solid var(--color-rosado-medio);
             box-shadow: 0 4px 10px rgba(233, 149, 169, 0.3);
-            transform: translate(-50%, -50%); /* Centra el botón en su coordenada */
+            transform: translate(-50%, -50%); 
             text-align: center;
             transition: all 0.3s ease;
             z-index: 10;
@@ -83,23 +83,23 @@
         }
 
         /* ==========================================
-           CUENTA REGRESIVA ELEGANTE (NUEVA VERSIÓN)
+           CUENTA REGRESIVA ELEGANTE (AJUSTADA)
            ========================================== */
         .contador-caja {
             position: absolute;
-            top: 76%; /* Mantiene la misma altura que solicitaste */
+            top: 77%; /* Bajé un 1% para que no tape la palabra "FALTAN" */
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(255, 255, 255, 0.9); /* Blanco elegante con leve transparencia */
+            background-color: rgba(255, 255, 255, 0.9); 
             border: 2px solid var(--color-rosado-medio);
-            border-radius: 25px; /* Esquinas redondeadas */
-            padding: 25px 20px;
+            border-radius: 20px; 
+            padding: 15px 15px; /* Menos relleno para achicar la caja */
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Dos columnas */
-            gap: 20px 40px; /* Separación entre filas y columnas */
+            grid-template-columns: 1fr 1fr; 
+            gap: 15px 15px; /* Menos separación entre números */
             box-shadow: 0 8px 25px rgba(233, 149, 169, 0.4);
-            width: 80%;
-            max-width: 320px;
+            width: 60%; /* Más angosto para no pisar las flores */
+            max-width: 240px;
             z-index: 10;
         }
 
@@ -112,17 +112,17 @@
 
         .tiempo-item span {
             font-family: var(--fuente-elegante);
-            font-size: 2.5rem;
+            font-size: 2.2rem; /* Números un poco más chicos */
             font-weight: 700;
             line-height: 1;
         }
 
         .tiempo-item p {
-            font-size: 0.8rem;
+            font-size: 0.7rem; /* Letra ajustada para palabras largas */
             text-transform: uppercase;
             font-weight: 600;
             margin-top: 5px;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
 
         /* ==========================================
@@ -136,7 +136,6 @@
             gap: 15px;
             padding: 10px;
             transform: translateX(-50%);
-            /* Oculta la barra de scroll */
             -ms-overflow-style: none;  
             scrollbar-width: none;  
         }
@@ -146,12 +145,12 @@
 
         .carrusel-item {
             scroll-snap-align: center;
-            flex: 0 0 200px; /* Ancho de cada foto en el carrusel */
+            flex: 0 0 200px; 
             height: 250px;
             border-radius: 15px;
             border: 3px solid var(--color-rosado-claro);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            object-fit: cover; /* Recorta la imagen para que encaje perfecto */
+            object-fit: cover; 
             background-color: #fcecf0;
         }
 
@@ -178,7 +177,6 @@
             animation: latido 2s infinite;
         }
         
-        /* Animación suave para la música */
         @keyframes latido {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -214,14 +212,14 @@
         <!-- IMAGEN 1: CUENTA REGRESIVA -->
         <div class="seccion">
             <img src="IMAGEN1.png" alt="Faltan...">
-            <!-- NUEVA CAJA DE CONTADOR (No usa círculos y mantiene el top: 76%) -->
+            <!-- CAJA DE CONTADOR AJUSTADA -->
             <div class="contador-caja">
                 <!-- Arriba -->
                 <div class="tiempo-item"><span id="dias">00</span><p>Días</p></div>
-                <div class="tiempo-item"><span id="horas">00</span><p>Hs</p></div>
+                <div class="tiempo-item"><span id="horas">00</span><p>Horas</p></div>
                 <!-- Abajo -->
-                <div class="tiempo-item"><span id="minutos">00</span><p>Min</p></div>
-                <div class="tiempo-item"><span id="segundos">00</span><p>Seg</p></div>
+                <div class="tiempo-item"><span id="minutos">00</span><p>Minutos</p></div>
+                <div class="tiempo-item"><span id="segundos">00</span><p>Segundos</p></div>
             </div>
         </div>
 
@@ -245,26 +243,27 @@
             </div>
         </div>
 
-        <!-- IMAGEN 4: CONFIRMAR ASISTENCIA -->
+        <!-- IMAGEN 4: CONFIRMAR ASISTENCIA Y SUGERIR CANCIÓN -->
         <div class="seccion">
             <img src="imagen4.png" alt="Confirmar Asistencia">
+            
             <a href="https://docs.google.com/forms/..." target="_blank" class="boton-interactivo" 
                style="top: 48%; left: 50%; width: 75%;">
                 Confirmar Asistencia
             </a>
-            <!-- El rectángulo blanco que tapaba la imagen5 ha sido eliminado por completo de aquí -->
+
+            <!-- NUEVA UBICACIÓN: Botón Sugerir Canción al final de la imagen 4 -->
+            <a href="https://docs.google.com/forms/..." id="btn-cancion" target="_blank" class="boton-interactivo" 
+               style="top: 85%; left: 50%; width: 70%;">
+                Sugerir Canción
+            </a>
         </div>
 
-        <!-- IMAGEN 5: SUGERIR CANCIÓN Y REGALOS -->
+        <!-- IMAGEN 5: REGALOS Y SUBIR FOTOS -->
         <div class="seccion">
             <img src="imagen5.png" alt="Playlist y Regalos">
             
-            <a href="https://docs.google.com/forms/..." id="btn-cancion" target="_blank" class="boton-interactivo" 
-               style="top: 41%; left: 50%; width: 70%;">
-                Sugerir Canción
-            </a>
-            
-            <!-- NUEVO: Botón de Subir Fotos en la parte inferior -->
+            <!-- Botón de Subir Fotos en la parte inferior de la imagen 5 -->
             <a href="https://ruta-para-subir-fotos.com" id="btn-fotos" target="_blank" class="boton-interactivo" 
                style="top: 85%; left: 50%; width: 70%;">
                 Subir Fotos
